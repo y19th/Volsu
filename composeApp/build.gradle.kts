@@ -1,13 +1,19 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinSerialization)
+    alias(libs.plugins.buildKonfig.plugin)
 }
+
+val appVersionName = "1.0.0"
+val appVersionCode = 1
 
 kotlin {
     androidTarget {
@@ -31,18 +37,19 @@ kotlin {
     sourceSets {
         
         androidMain.dependencies {
-            implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.koin.android)
         }
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.ui)
-            implementation(compose.components.resources)
-            implementation(compose.components.uiToolingPreview)
-            implementation(libs.androidx.lifecycle.viewmodel)
-            implementation(libs.androidx.lifecycle.runtime.compose)
+            api(projects.core.data)
+            api(projects.core.domain)
+            api(projects.core.local)
+            api(projects.core.ui)
+            api(projects.core.util)
+
+            api(projects.features.splash)
+            api(projects.features.auth)
         }
     }
 }
@@ -68,13 +75,23 @@ android {
             isMinifyEnabled = false
         }
     }
+
+    buildFeatures {
+        buildConfig = true
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
 }
 
-dependencies {
-    debugImplementation(compose.uiTooling)
+buildkonfig {
+    packageName = "com.volsu.unijournal.konfig"
+
+    defaultConfigs {
+        buildConfigField(FieldSpec.Type.STRING, "appVersionName", appVersionName)
+        buildConfigField(FieldSpec.Type.INT, "appVersionCode", appVersionCode.toString())
+    }
 }
 

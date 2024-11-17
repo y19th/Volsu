@@ -29,3 +29,11 @@ dependencyResolutionManagement {
 }
 
 include(":composeApp")
+
+include(":core:data")
+include(":core:domain")
+include(":core:ui")
+include(":core:util")
+include(":core:local")
+include(":features:auth")
+include(":features:splash")
