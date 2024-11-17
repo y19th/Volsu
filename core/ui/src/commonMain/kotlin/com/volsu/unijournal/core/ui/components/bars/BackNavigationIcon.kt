@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
@@ -30,5 +31,23 @@ fun BackNavigationIcon(
             .then(modifier),
         imageVector = Icons.Default.ArrowBackIosNew,
         contentDescription = "BackButton"
+    )
+}
+
+@Composable
+fun SettingsIcon(
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Icon(
+        modifier = Modifier
+            .minimumInteractiveComponentSize()
+            .clip(CircleShape)
+            .semantics { role = Role.Button }
+            .clickable { onClick.invoke() }
+            .padding(all = 4.dp)
+            .then(modifier),
+        imageVector = Icons.Default.Settings,
+        contentDescription = "Settings icon"
     )
 }

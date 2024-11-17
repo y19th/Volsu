@@ -1,10 +1,10 @@
 package com.volsu.unijournal.auth.auth.ui
 
 import com.arkivanov.decompose.ComponentContext
-import com.volsu.unijournal.core.domain.use_cases.transition.UpdateTransitionUseCase
 import com.volsu.unijournal.auth.auth.AuthNavigator
 import com.volsu.unijournal.auth.auth.domain.events.AuthEvents
 import com.volsu.unijournal.auth.auth.domain.state.AuthState
+import com.volsu.unijournal.core.domain.use_cases.transition.UpdateTransitionUseCase
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.core.util.extension.isNotMatchEmailPattern
 
@@ -38,6 +38,9 @@ class AuthComponent(
 
             AuthEvents.OnAuth -> {
                 if (isValid()) {
+                    navigate {
+                        navigator.navigateHome()
+                    }
                 }
             }
         }

@@ -16,6 +16,7 @@ import com.volsu.unijournal.core.util.local.LocalSnackbar
 import com.volsu.unijournal.core.util.local.SnackFlow
 import com.volsu.unijournal.core.util.local.VolsuSettings
 import com.volsu.unijournal.core.util.models.BuildProperties
+import com.volsu.unijournal.home.root.ui.HomeScreen
 import com.volsu.unijournal.konfig.BuildKonfig
 import com.volsu.unijournal.shared.isDebug
 import com.volsu.unijournal.splash.splash.ui.SplashScreen
@@ -63,6 +64,10 @@ fun RootScreen(
 
                     is RootComponent.Child.AuthChild -> {
                         AuthScreen(component = instance.component)
+                    }
+
+                    is RootComponent.Child.HomeChild -> {
+                        HomeScreen(component = instance.component)
                     }
                 }
             }

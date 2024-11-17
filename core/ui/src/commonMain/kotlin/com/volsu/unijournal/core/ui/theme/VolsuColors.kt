@@ -23,7 +23,9 @@ data class VolsuColors(
     val onOutlineColor: Color,
     val hintColor: Color,
     val shimColor: Color,
-    val profileSecondaryColor: Color
+    val profileSecondaryColor: Color,
+    val badGradeColor: Color,
+    val goodGradeColor: Color
 )
 
 private fun volsuColorPalette(): VolsuColors = VolsuColors(
@@ -39,5 +41,7 @@ private fun volsuColorPalette(): VolsuColors = VolsuColors(
     onOutlineColor = OnOutlineColor,
     hintColor = HintColor,
     shimColor = ShimColor,
-    profileSecondaryColor = ProfileSecondaryTextColor
+    profileSecondaryColor = ProfileSecondaryTextColor,
+    badGradeColor = BadGradeColor,
+    goodGradeColor = GoodGradeColor
 )

@@ -2,7 +2,7 @@ package com.volsu.unijournal.core.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-internal val Primary = Color(0xFF012E47)
+internal val Primary = Color(0xFF013553)
 internal val OnPrimary = Color(0xFFFFFFFF)
 
 internal val Background = Color(0xFFF9F9F9)
@@ -24,7 +24,7 @@ val TertiaryTextColor = Color(0xFF959595)
 val SecondaryTextColor = Color(0xFF8F8F8F)
 val PrimaryTextColor = Color (0xFF2D2B2E)
 val PlaceholderTextColor = Color(0xFF8F9098)
-val PrimaryColor = Color(0xFF012E47)
+val PrimaryColor = Color(0xFF013553)
 val OnPrimaryColor = Color (0xFFFFFFFF)
 val HomePrimaryColor = Color(0xFF242424)
 val HomeSecondaryTextColor = Color(0xFFFFFFFF)
@@ -33,3 +33,5 @@ val OnOutlineColor = Color(0xFF8C8C8C)
 val HintColor = Color(0xFFC0C0C0)
 val ShimColor = Color(0xFFEAEAEA)
 val ProfileSecondaryTextColor = Color(0xFF636363)
+val BadGradeColor = Color(0xffac0000)
+val GoodGradeColor = Color(0xff27b300)

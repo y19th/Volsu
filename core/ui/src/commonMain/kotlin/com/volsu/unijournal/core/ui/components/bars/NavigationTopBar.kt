@@ -107,8 +107,8 @@ fun CollapsingVolsuTopBar(
 @Composable
 fun VolsuTopBar(
     modifier: Modifier = Modifier,
-    title: String = "",
     contentText: String = "",
+    additionalText: String = "",
     trailingIcon: @Composable () -> Unit = {}
 ) {
     Row(
@@ -124,18 +124,18 @@ fun VolsuTopBar(
             modifier = Modifier
                 .fillMaxWidth(0.65f)
         ) {
-            TextRegular(
-                text = title,
-                color = volsuColorPalette.homePrimaryColor,
-                fontSize = 12.sp,
-                maxLines = 1
-            )
             TextSemibold(
                 text = contentText,
                 color = volsuColorPalette.homePrimaryColor,
                 fontSize = 20.sp,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
+            )
+            TextRegular(
+                text = additionalText,
+                color = volsuColorPalette.homePrimaryColor,
+                fontSize = 12.sp,
+                maxLines = 1
             )
         }
 
