@@ -14,4 +14,10 @@
         <item>91+</item>
     </string-array>
     <!---->
+
+    <!--GROUP SCREEN-->
+    <string name="group_lecture_title">Лекция</string>
+    <string name="group_seminar_title">Семинар</string>
+    <string name="group_laboratory_title">Лабораторный практикум</string>
+    <!-- -->
 </resources>

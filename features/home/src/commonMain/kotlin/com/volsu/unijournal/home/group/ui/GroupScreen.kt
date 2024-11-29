@@ -4,14 +4,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.LibraryBooks
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.volsu.unijournal.core.domain.models.Subject
+import com.volsu.unijournal.core.domain.models.SubjectForm
 import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
@@ -22,7 +22,7 @@ import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
 import com.volsu.unijournal.core.util.extension.collectAsImmediateState
 import com.volsu.unijournal.home.group.domain.events.GroupEvents
-import com.volsu.unijournal.home.main.ui.components.SelectableRow
+import com.volsu.unijournal.home.group.ui.components.SubjectContent
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,7 +31,22 @@ internal fun GroupScreen(
 ) {
     val state = component.state.collectAsImmediateState()
     val handleEvents = component.rememberHandleEvents()
-    val testList = remember { listOf("Базы данных", "Дискретная математика", "Паралелльное программирование") }
+    val testList = remember {
+        listOf(
+            Subject(
+                name = "Базы данных",
+                type = SubjectForm.Lecture
+            ),
+            Subject(
+                name = "Дискретная математика",
+                type = SubjectForm.Seminar
+            ),
+            Subject(
+                name = "Паралелльное программирование",
+                type = SubjectForm.Laboratory
+            )
+        )
+    }
 
     VolsuColumn(
         modifier = Modifier
@@ -65,9 +80,8 @@ internal fun GroupScreen(
                 VerticalSpacer(height = 16.dp)
             }
             items(testList) { item ->
-                SelectableRow(
-                    text = item,
-                    icon = Icons.AutoMirrored.Filled.LibraryBooks,
+                SubjectContent(
+                    item = item,
                     onClick = {
                         handleEvents(GroupEvents.OnNavigateToSubject(item))
                     }

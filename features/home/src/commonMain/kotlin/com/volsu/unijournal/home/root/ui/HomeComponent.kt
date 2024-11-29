@@ -2,6 +2,7 @@ package com.volsu.unijournal.home.root.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.arkivanov.decompose.router.stack.childStack
+import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.BaseComponent
 import com.volsu.unijournal.core.util.extension.getComponent
 import com.volsu.unijournal.home.group.ui.GroupComponent
@@ -45,7 +46,7 @@ class HomeComponent(
             Child.SubjectChild(
                 getComponent(
                     context = componentContext,
-                    param = configuration.subject
+                    params = arrayOf(configuration.subject, configuration.subjectType)
                 )
             )
         }
@@ -74,7 +75,8 @@ class HomeComponent(
 
         @Serializable
         data class SubjectConfiguration(
-            val subject: String
+            val subject: String,
+            val subjectType: SubjectType
         ) : Configuration()
     }
 }

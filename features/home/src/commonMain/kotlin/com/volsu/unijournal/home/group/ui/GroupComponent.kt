@@ -1,6 +1,7 @@
 package com.volsu.unijournal.home.group.ui
 
 import com.arkivanov.decompose.ComponentContext
+import com.volsu.unijournal.core.domain.mapper.toSubjectType
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.home.group.domain.events.GroupEvents
 import com.volsu.unijournal.home.group.domain.state.GroupState
@@ -29,7 +30,8 @@ internal class GroupComponent(
                 navigate {
                     navigator.handleConfiguration(
                         HomeComponent.Configuration.SubjectConfiguration(
-                            subject = event.subject
+                            subject = event.subject.name,
+                            subjectType = event.subject.type.toSubjectType()
                         )
                     )
                 }
