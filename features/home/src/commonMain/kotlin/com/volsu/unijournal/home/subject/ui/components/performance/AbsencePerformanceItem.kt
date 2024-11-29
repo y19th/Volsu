@@ -1,4 +1,4 @@
-package com.volsu.unijournal.home.subject.ui.components
+package com.volsu.unijournal.home.subject.ui.components.performance
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -15,10 +15,10 @@ import com.volsu.unijournal.core.ui.components.texts.TextMedium
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 
 @Composable
-internal fun PerformanceItem(
-    item: Pair<String, *>,
+internal fun AbsencePerformanceItem(
+    item: Pair<String, String>,
     withDivider: Boolean = true,
-    gradeTextColor: Color = volsuColorPalette.primaryTextColor
+    gradeTextColor: Color = volsuColorPalette.badGradeColor
 ) {
     Row(
         modifier = Modifier
@@ -33,7 +33,7 @@ internal fun PerformanceItem(
         )
 
         TextMedium(
-            text = item.second.toString(),
+            text = item.second,
             fontSize = 16.sp,
             color = gradeTextColor
         )
