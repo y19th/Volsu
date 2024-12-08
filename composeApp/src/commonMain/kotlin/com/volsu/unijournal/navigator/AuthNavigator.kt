@@ -4,7 +4,7 @@ import com.arkivanov.decompose.router.stack.StackNavigation
 import com.volsu.unijournal.auth.auth.AuthNavigator
 import com.volsu.unijournal.root.RootComponent
 
-class AuthNavigatorImpl(
+internal class AuthNavigatorImpl(
     private val rootNavigator: RootNavigator
 ) : AuthNavigator {
 

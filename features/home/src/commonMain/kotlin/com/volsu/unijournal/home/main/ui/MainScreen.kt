@@ -41,7 +41,7 @@ internal fun MainScreen(
                 contentText = "Агапченко Олег",
                 additionalText = "Студент",
                 trailingIcon = {
-                    SettingsIcon { }
+                    SettingsIcon { handleEvents(MainEvents.OnNavigateToProfile) }
                 }
             )
         }

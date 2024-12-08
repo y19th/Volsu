@@ -6,5 +6,7 @@ internal sealed interface MainEvents: BaseEvents {
 
     data object OnRefresh: MainEvents
 
+    data object OnNavigateToProfile: MainEvents
+
     data class OnNavigateToGroup(val group: String): MainEvents
 }

@@ -51,6 +51,7 @@ kotlin {
             api(projects.features.splash)
             api(projects.features.auth)
             api(projects.features.home)
+            api(projects.features.profile)
         }
     }
 }

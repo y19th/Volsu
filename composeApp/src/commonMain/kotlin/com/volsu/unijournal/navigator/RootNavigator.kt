@@ -1,7 +1,7 @@
 package com.volsu.unijournal.navigator
 
 import com.arkivanov.decompose.router.stack.StackNavigation
-import com.arkivanov.decompose.router.stack.navigate
+import com.arkivanov.decompose.router.stack.bringToFront
 import com.volsu.unijournal.core.util.base_components.BaseNavigator
 import com.volsu.unijournal.root.RootComponent
 
@@ -12,6 +12,6 @@ internal class RootNavigatorImpl: RootNavigator {
         = StackNavigation()
 
     override fun handleConfiguration(configuration: RootComponent.Configuration) {
-        navigation.navigate { listOf(configuration) }
+        navigation.bringToFront(configuration)
     }
 }

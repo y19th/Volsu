@@ -7,6 +7,7 @@ import com.volsu.unijournal.core.util.base_components.BaseComponent
 import com.volsu.unijournal.core.util.extension.getComponent
 import com.volsu.unijournal.home.root.ui.HomeComponent
 import com.volsu.unijournal.navigator.RootNavigator
+import com.volsu.unijournal.profile.root.ui.ProfileComponent
 import com.volsu.unijournal.splash.splash.ui.SplashComponent
 import kotlinx.serialization.Serializable
 
@@ -38,6 +39,10 @@ class RootComponent(
         Configuration.HomeConfiguration -> {
             Child.HomeChild(getComponent(context))
         }
+
+        Configuration.ProfileConfiguration -> {
+            Child.ProfileChild(getComponent(context))
+        }
     }
 
 
@@ -49,6 +54,7 @@ class RootComponent(
 
         data class HomeChild(val component: HomeComponent) : Child()
 
+        data class ProfileChild(val component: ProfileComponent): Child()
     }
 
     @Serializable
@@ -62,5 +68,8 @@ class RootComponent(
 
         @Serializable
         data object HomeConfiguration : Configuration()
+
+        @Serializable
+        data object ProfileConfiguration: Configuration()
     }
 }

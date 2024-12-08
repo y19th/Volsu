@@ -21,6 +21,10 @@ internal class MainComponent(
 
             }
 
+            MainEvents.OnNavigateToProfile -> {
+                navigate { navigator.navigateToProfile() }
+            }
+
             is MainEvents.OnNavigateToGroup -> {
                 navigate {
                     navigator.handleConfiguration(

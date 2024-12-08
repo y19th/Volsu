@@ -18,6 +18,7 @@ import com.volsu.unijournal.core.util.local.VolsuSettings
 import com.volsu.unijournal.core.util.models.BuildProperties
 import com.volsu.unijournal.home.root.ui.HomeScreen
 import com.volsu.unijournal.konfig.BuildKonfig
+import com.volsu.unijournal.profile.root.ui.ProfileScreen
 import com.volsu.unijournal.shared.isDebug
 import com.volsu.unijournal.splash.splash.ui.SplashScreen
 
@@ -68,6 +69,10 @@ fun RootScreen(
 
                     is RootComponent.Child.HomeChild -> {
                         HomeScreen(component = instance.component)
+                    }
+
+                    is RootComponent.Child.ProfileChild -> {
+                        ProfileScreen(component = instance.component)
                     }
                 }
             }
