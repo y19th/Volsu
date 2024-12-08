@@ -7,6 +7,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.People
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -32,6 +33,10 @@ internal fun MainScreen(
         listOf("ISTb-211", "ИСТб-211", "МОСб-122")
     }
 
+    LaunchedEffect(Unit) {
+        handleEvents(MainEvents.OnRefresh)
+    }
+
     VolsuColumn(
         modifier = Modifier
             .fillMaxHeight()
@@ -39,7 +44,7 @@ internal fun MainScreen(
         topBar = {
             VolsuTopBar(
                 contentText = "Агапченко Олег",
-                additionalText = "Студент",
+                additionalText = state.value.currentRole.string(),
                 trailingIcon = {
                     SettingsIcon { handleEvents(MainEvents.OnNavigateToProfile) }
                 }

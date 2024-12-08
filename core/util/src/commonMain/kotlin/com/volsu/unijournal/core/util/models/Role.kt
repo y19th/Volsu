@@ -12,11 +12,21 @@ sealed class Role(val value: String) {
         }
     }
 
-    @Serializable
-    data object Student : Role("student")
+    open fun string(): String = "unknows"
 
     @Serializable
-    data object Teacher : Role("teacher")
+    data object Student : Role("student") {
+        override fun string(): String {
+            return "Студент"
+        }
+    }
+
+    @Serializable
+    data object Teacher : Role("teacher") {
+        override fun string(): String {
+            return "Преподаватель"
+        }
+    }
 }
 
 fun Role.switch(): Role = when(this) {

@@ -52,6 +52,7 @@ kotlin {
             api(projects.features.auth)
             api(projects.features.home)
             api(projects.features.profile)
+            api(projects.features.subject)
         }
     }
 }

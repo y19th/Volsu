@@ -8,7 +8,7 @@ import com.volsu.unijournal.core.util.extension.getComponent
 import com.volsu.unijournal.home.group.ui.GroupComponent
 import com.volsu.unijournal.home.main.ui.MainComponent
 import com.volsu.unijournal.home.root.HomeNavigator
-import com.volsu.unijournal.home.subject.ui.SubjectComponent
+import com.volsu.unijournal.subject.root.ui.RootSubjectComponent
 import kotlinx.serialization.Serializable
 
 class HomeComponent(
@@ -59,7 +59,7 @@ class HomeComponent(
 
         internal data class GroupChild(val component: GroupComponent) : Child()
 
-        internal data class SubjectChild(val component: SubjectComponent) : Child()
+        internal data class SubjectChild(val component: RootSubjectComponent) : Child()
     }
 
     @Serializable

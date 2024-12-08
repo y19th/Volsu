@@ -2,6 +2,7 @@ package com.volsu.unijournal.home.main.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
+import com.volsu.unijournal.core.util.local.VolsuSettings
 import com.volsu.unijournal.home.main.domain.events.MainEvents
 import com.volsu.unijournal.home.main.domain.state.MainState
 import com.volsu.unijournal.home.root.HomeNavigator
@@ -18,7 +19,7 @@ internal class MainComponent(
     override fun handleEvent(event: MainEvents) {
         when (event) {
             MainEvents.OnRefresh -> {
-
+                update { it.copy(currentRole = VolsuSettings.role) }
             }
 
             MainEvents.OnNavigateToProfile -> {

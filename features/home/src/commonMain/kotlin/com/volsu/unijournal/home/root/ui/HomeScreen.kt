@@ -7,7 +7,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import com.volsu.unijournal.home.group.ui.GroupScreen
 import com.volsu.unijournal.home.main.ui.MainScreen
-import com.volsu.unijournal.home.subject.ui.SubjectScreen
+import com.volsu.unijournal.subject.root.ui.RootSubjectScreen
 
 @Composable
 fun HomeScreen(
@@ -29,7 +29,7 @@ fun HomeScreen(
             }
 
             is HomeComponent.Child.SubjectChild -> {
-                SubjectScreen(component = instance.component)
+                RootSubjectScreen(component = instance.component)
             }
         }
     }

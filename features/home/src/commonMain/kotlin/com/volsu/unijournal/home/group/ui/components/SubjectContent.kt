@@ -20,8 +20,8 @@ import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.texts.TextRegular
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import com.volsu.unijournal.core.util.extension.shaped
-import com.volsu.unijournal.home.extension.rememberSubjectFormIcon
-import com.volsu.unijournal.home.extension.rememberSubjectFormText
+import com.volsu.unijournal.subject.extension.rememberSubjectFormIcon
+import com.volsu.unijournal.subject.extension.rememberSubjectFormText
 
 @Composable
 internal fun SubjectContent(
