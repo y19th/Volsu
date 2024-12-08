@@ -4,11 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.unit.dp
 import com.volsu.unijournal.core.ui.components.VerticalSpacer
+import com.volsu.unijournal.subject.subject.domain.events.SubjectEvents
 import com.volsu.unijournal.subject.subject.domain.state.SubjectState
 import com.volsu.unijournal.subject.subject.ui.components.SubjectTitle
 
 @Composable
-internal fun TeacherSubject(state: State<SubjectState>) {
+internal fun TeacherSubject(
+    state: State<SubjectState>,
+    handleEvents: (SubjectEvents) -> Unit
+) {
     VerticalSpacer(height = 24.dp)
 
     SubjectTitle(
@@ -18,5 +22,5 @@ internal fun TeacherSubject(state: State<SubjectState>) {
 
     VerticalSpacer(height = 24.dp)
 
-    TeacherSubjectContent()
+    TeacherSubjectContent(handleEvents)
 }

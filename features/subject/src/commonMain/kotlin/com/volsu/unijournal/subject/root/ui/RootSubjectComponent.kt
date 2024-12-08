@@ -5,7 +5,8 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.BaseComponent
 import com.volsu.unijournal.core.util.extension.getComponent
-import com.volsu.unijournal.subject.detail.DetailSubjectComponent
+import com.volsu.unijournal.subject.attendance_detail.ui.AttendanceDetailComponent
+import com.volsu.unijournal.subject.detail.ui.DetailSubjectComponent
 import com.volsu.unijournal.subject.root.SubjectNavigator
 import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType
 import com.volsu.unijournal.subject.subject.ui.SubjectComponent
@@ -31,7 +32,12 @@ class RootSubjectComponent(
         componentContext: ComponentContext
     ): Child = when (configuration) {
         is Configuration.DetailConfiguration -> {
-            Child.DetailChild(getComponent(componentContext))
+            Child.DetailChild(
+                getComponent(
+                    context = componentContext,
+                    param = configuration.type
+                )
+            )
         }
 
         is Configuration.MainConfiguration -> {
@@ -42,6 +48,15 @@ class RootSubjectComponent(
                 )
             )
         }
+
+        is Configuration.AttendanceDetailConfiguration -> {
+            Child.AttendanceDetailChild(
+                getComponent(
+                    context = componentContext,
+                    param = configuration.user
+                )
+            )
+        }
     }
 
     sealed class Child {
@@ -49,6 +64,9 @@ class RootSubjectComponent(
         internal data class MainChild(val component: SubjectComponent) : Child()
 
         internal data class DetailChild(val component: DetailSubjectComponent) : Child()
+
+        internal data class AttendanceDetailChild(val component: AttendanceDetailComponent) :
+            Child()
     }
 
     @Serializable
@@ -63,6 +81,11 @@ class RootSubjectComponent(
         @Serializable
         data class DetailConfiguration(
             val type: DetailSubjectType
+        ) : Configuration()
+
+        @Serializable
+        data class AttendanceDetailConfiguration(
+            val user: String
         ) : Configuration()
     }
 }

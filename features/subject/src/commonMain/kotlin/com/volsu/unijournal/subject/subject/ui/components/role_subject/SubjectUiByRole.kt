@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.rememberUpdatedState
 import com.volsu.unijournal.core.util.models.Role
+import com.volsu.unijournal.subject.subject.domain.events.SubjectEvents
 import com.volsu.unijournal.subject.subject.domain.state.SubjectState
 import com.volsu.unijournal.subject.subject.ui.components.role_subject.student.StudentSubject
 import com.volsu.unijournal.subject.subject.ui.components.role_subject.teacher.TeacherSubject
@@ -11,7 +12,8 @@ import com.volsu.unijournal.subject.subject.ui.components.role_subject.teacher.T
 @Composable
 internal fun SubjectUiByRole(
     role: Role,
-    uncollectedState: State<SubjectState>
+    uncollectedState: State<SubjectState>,
+    handleEvents: (SubjectEvents) -> Unit
 ) {
     val state = rememberUpdatedState(role)
 
@@ -20,7 +22,10 @@ internal fun SubjectUiByRole(
             StudentSubject(uncollectedState)
         }
         Role.Teacher -> {
-            TeacherSubject(uncollectedState)
+            TeacherSubject(
+                state = uncollectedState,
+                handleEvents = handleEvents
+            )
         }
     }
 }

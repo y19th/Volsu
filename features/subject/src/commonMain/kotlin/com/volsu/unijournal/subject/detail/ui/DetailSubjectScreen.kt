@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.subject.ui
+package com.volsu.unijournal.subject.detail.ui
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -13,17 +13,18 @@ import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
 import com.volsu.unijournal.core.ui.components.bars.NavigationTopBar
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
 import com.volsu.unijournal.core.util.extension.collectAsImmediateState
-import com.volsu.unijournal.core.util.local.VolsuSettings
-import com.volsu.unijournal.subject.subject.domain.events.SubjectEvents
-import com.volsu.unijournal.subject.subject.ui.components.role_subject.SubjectUiByRole
+import com.volsu.unijournal.subject.detail.domain.events.DetailEvents
+import com.volsu.unijournal.subject.detail.ui.components.DetailUiSubjectType
+import com.volsu.unijournal.subject.root.domain.models.string
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SubjectScreen(
-    component: SubjectComponent
+internal fun DetailSubjectScreen(
+    component: DetailSubjectComponent
 ) {
     val state = component.state.collectAsImmediateState()
     val handleEvents = component.rememberHandleEvents()
+
     VolsuColumn(
         modifier = Modifier
             .fillMaxHeight()
@@ -31,16 +32,18 @@ internal fun SubjectScreen(
             .verticalScroll(rememberScrollState()),
         topBar = {
             NavigationTopBar(
+                title = state.value.type.string(),
                 navigationIcon = {
-                    BackNavigationIcon { handleEvents(SubjectEvents.OnNavigateBack) }
+                    BackNavigationIcon { handleEvents(DetailEvents.OnNavigateBack) }
                 }
             )
         }
     ) {
-        SubjectUiByRole(
-            role = VolsuSettings.role,
-            uncollectedState = state,
-            handleEvents = handleEvents
+        DetailUiSubjectType(
+            type = state.value.type,
+            onAttendanceClick = {
+                handleEvents(DetailEvents.OnNavigateToUserAttendance(it))
+            }
         )
     }
 }

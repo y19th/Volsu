@@ -5,7 +5,8 @@ import com.arkivanov.decompose.extensions.compose.stack.Children
 import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
-import com.volsu.unijournal.subject.detail.DetailSubjectScreen
+import com.volsu.unijournal.subject.attendance_detail.ui.AttendanceDetailScreen
+import com.volsu.unijournal.subject.detail.ui.DetailSubjectScreen
 import com.volsu.unijournal.subject.subject.ui.SubjectScreen
 
 @Composable
@@ -25,6 +26,10 @@ fun RootSubjectScreen(
 
             is RootSubjectComponent.Child.MainChild -> {
                 SubjectScreen(component = instance.component)
+            }
+
+            is RootSubjectComponent.Child.AttendanceDetailChild -> {
+                AttendanceDetailScreen(component = instance.component)
             }
         }
     }

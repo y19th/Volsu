@@ -11,3 +11,12 @@ sealed interface DetailSubjectType {
     @Serializable
     data object Performance: DetailSubjectType
 }
+
+fun DetailSubjectType.string() = when(this) {
+    DetailSubjectType.Attendance -> {
+        "Посещение"
+    }
+    DetailSubjectType.Performance -> {
+        "Performance"
+    }
+}

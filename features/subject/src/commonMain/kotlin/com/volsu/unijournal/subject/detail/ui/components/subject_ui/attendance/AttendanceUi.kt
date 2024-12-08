@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.subject.ui.components.role_subject.teacher
+package com.volsu.unijournal.subject.detail.ui.components.subject_ui.attendance
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -12,33 +12,27 @@ import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.texts.TextRegular
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import com.volsu.unijournal.core.util.extension.shaped
-import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType.Attendance
-import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType.Performance
-import com.volsu.unijournal.subject.subject.domain.events.SubjectEvents
+import com.volsu.unijournal.subject.detail.domain.models.DetailSubjectState
 
 @Composable
-internal fun TeacherSubjectContent(
-    handleEvents: (SubjectEvents) -> Unit
+internal fun AttendanceUi(
+    state: DetailSubjectState.Attendance,
+    onUserClick: (String) -> Unit
 ) {
-    TeacherItem(
-        text = "Посещение",
-        onClick = {
-            handleEvents(SubjectEvents.OnNavigateToDetail(Attendance))
-        }
-    )
+    VerticalSpacer(height = 24.dp)
 
-    VerticalSpacer(height = 8.dp)
-
-    TeacherItem(
-        text = "Сданные лабораторные работы",
-        onClick = {
-            handleEvents(SubjectEvents.OnNavigateToDetail(Performance))
-        }
-    )
+    state.items.forEach { item ->
+        AttendanceItem(
+            text = item,
+            onClick = {
+                onUserClick(item)
+            }
+        )
+    }
 }
 
 @Composable
-private fun TeacherItem(
+private fun AttendanceItem(
     text: String,
     onClick: () -> Unit
 ) {
@@ -55,4 +49,6 @@ private fun TeacherItem(
         fontSize = 16.sp,
         color = volsuColorPalette.primaryTextColor
     )
+
+    VerticalSpacer(height = 12.dp)
 }
