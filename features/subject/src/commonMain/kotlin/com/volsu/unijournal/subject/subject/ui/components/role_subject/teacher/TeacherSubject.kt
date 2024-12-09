@@ -22,5 +22,8 @@ internal fun TeacherSubject(
 
     VerticalSpacer(height = 24.dp)
 
-    TeacherSubjectContent(handleEvents)
+    TeacherSubjectContent(
+        subjectForm = state.value.form,
+        handleEvents = handleEvents
+    )
 }

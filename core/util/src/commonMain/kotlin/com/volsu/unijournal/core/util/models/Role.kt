@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 sealed class Role(val value: String) {
 
     companion object {
-        fun decode(value: String) = when (value) {
+        fun decode(value: String): Role = when (value) {
             "student" -> Student
             else -> Teacher
         }

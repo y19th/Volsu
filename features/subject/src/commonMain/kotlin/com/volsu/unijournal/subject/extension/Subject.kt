@@ -12,8 +12,11 @@ import com.volsu.unijournal.core.domain.models.SubjectForm
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import org.jetbrains.compose.resources.stringResource
 import volsu.features.subject.generated.resources.Res
+import volsu.features.subject.generated.resources.group_laboratory_performance
 import volsu.features.subject.generated.resources.group_laboratory_title
+import volsu.features.subject.generated.resources.group_lecture_performance
 import volsu.features.subject.generated.resources.group_lecture_title
+import volsu.features.subject.generated.resources.group_seminar_performance
 import volsu.features.subject.generated.resources.group_seminar_title
 
 
@@ -24,6 +27,17 @@ fun rememberSubjectFormText(form: SubjectForm): String {
         SubjectForm.Lecture -> stringResource(Res.string.group_lecture_title)
         SubjectForm.Seminar -> stringResource(Res.string.group_seminar_title)
     }
+    return remember(form) { text }
+}
+
+@Composable
+fun rememberSubjectFormPerformanceText(form: SubjectForm): String {
+    val text = when (form) {
+        SubjectForm.Laboratory -> stringResource(Res.string.group_laboratory_performance)
+        SubjectForm.Lecture -> stringResource(Res.string.group_lecture_performance)
+        SubjectForm.Seminar -> stringResource(Res.string.group_seminar_performance)
+    }
+
     return remember(form) { text }
 }
 

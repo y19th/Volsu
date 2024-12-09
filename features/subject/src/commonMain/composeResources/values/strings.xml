@@ -5,6 +5,10 @@
     <string name="group_lecture_title">Лекция</string>
     <string name="group_seminar_title">Семинар</string>
     <string name="group_laboratory_title">Лабораторный практикум</string>
+
+    <string name="group_lecture_performance">Баллы за лекции</string>
+    <string name="group_seminar_performance">Баллы за семинары</string>
+    <string name="group_laboratory_performance">Сданные лабораторные работы</string>
     <!-- -->
 
     <!--SUBJECT SCREEN-->

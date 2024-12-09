@@ -23,7 +23,7 @@ internal class GroupComponent(
             }
 
             GroupEvents.OnNavigateToSettings -> {
-
+                navigate { navigator.navigateToProfile() }
             }
 
             is GroupEvents.OnNavigateToSubject -> {

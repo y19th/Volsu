@@ -1,5 +1,8 @@
 package com.volsu.unijournal.subject.root.domain.models
 
+import androidx.compose.runtime.Composable
+import com.volsu.unijournal.core.domain.models.SubjectForm
+import com.volsu.unijournal.subject.extension.rememberSubjectFormPerformanceText
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -9,14 +12,17 @@ sealed interface DetailSubjectType {
     data object Attendance: DetailSubjectType
 
     @Serializable
-    data object Performance: DetailSubjectType
+    data class Performance(
+        val type: SubjectForm
+    ): DetailSubjectType
 }
 
+@Composable
 fun DetailSubjectType.string() = when(this) {
     DetailSubjectType.Attendance -> {
         "Посещение"
     }
-    DetailSubjectType.Performance -> {
-        "Performance"
+    is DetailSubjectType.Performance -> {
+        rememberSubjectFormPerformanceText(type)
     }
 }

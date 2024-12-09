@@ -31,6 +31,7 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,7 +53,13 @@ fun NavigationTopBar(
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
-        title = { TextSemibold(text = title, fontSize = 20.sp) },
+        title = {
+            TextSemibold(
+                text = title,
+                fontSize = 20.sp,
+                textAlign = TextAlign.Center
+            )
+        },
         colors = colors,
         navigationIcon = navigationIcon,
         actions = trailingIcon,
