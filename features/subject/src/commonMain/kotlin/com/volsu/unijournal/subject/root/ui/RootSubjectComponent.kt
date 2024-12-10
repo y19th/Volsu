@@ -7,6 +7,7 @@ import com.volsu.unijournal.core.util.base_components.BaseComponent
 import com.volsu.unijournal.core.util.extension.getComponent
 import com.volsu.unijournal.subject.attendance_detail.ui.AttendanceDetailComponent
 import com.volsu.unijournal.subject.detail.ui.DetailSubjectComponent
+import com.volsu.unijournal.subject.performance_detail.ui.PerformanceDetailComponent
 import com.volsu.unijournal.subject.root.SubjectNavigator
 import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType
 import com.volsu.unijournal.subject.subject.ui.SubjectComponent
@@ -57,6 +58,15 @@ class RootSubjectComponent(
                 )
             )
         }
+
+        is Configuration.PerformanceDetailConfiguration -> {
+            Child.PerformanceDetailChild(
+                getComponent(
+                    context = componentContext,
+                    params = arrayOf(configuration.user, configuration.type)
+                )
+            )
+        }
     }
 
     sealed class Child {
@@ -66,6 +76,9 @@ class RootSubjectComponent(
         internal data class DetailChild(val component: DetailSubjectComponent) : Child()
 
         internal data class AttendanceDetailChild(val component: AttendanceDetailComponent) :
+            Child()
+
+        internal data class PerformanceDetailChild(val component: PerformanceDetailComponent) :
             Child()
     }
 
@@ -80,12 +93,19 @@ class RootSubjectComponent(
 
         @Serializable
         data class DetailConfiguration(
-            val type: DetailSubjectType
+            val type: DetailSubjectType,
+            val subjectType: SubjectType
         ) : Configuration()
 
         @Serializable
         data class AttendanceDetailConfiguration(
             val user: String
+        ) : Configuration()
+
+        @Serializable
+        data class PerformanceDetailConfiguration(
+            val user: String,
+            val type: SubjectType
         ) : Configuration()
     }
 }

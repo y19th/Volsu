@@ -2,6 +2,7 @@ package com.volsu.unijournal.subject.subject.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.volsu.unijournal.core.domain.mapper.toSubjectForm
+import com.volsu.unijournal.core.domain.mapper.toSubjectType
 import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.subject.root.SubjectNavigator
@@ -31,7 +32,8 @@ internal class SubjectComponent(
                 navigate {
                     navigator.handleConfiguration(
                         RootSubjectComponent.Configuration.DetailConfiguration(
-                            event.type
+                            type = event.type,
+                            subjectType = state.value.form.toSubjectType()
                         )
                     )
                 }

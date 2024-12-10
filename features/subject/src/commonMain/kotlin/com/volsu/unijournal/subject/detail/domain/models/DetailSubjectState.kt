@@ -21,7 +21,19 @@ sealed interface DetailSubjectState {
         }
     }
 
-    data class DetailAttendance(
-        val items: ImmutableList<Pair<String, Boolean>>
-    ) : DetailSubjectState
+    data class Performance(
+        val items: ImmutableList<String>
+    ) : DetailSubjectState {
+        companion object {
+            val testState = Performance(
+                items = persistentListOf(
+                    "Агапченко О.А. 1",
+                    "Агапченко О.А. 2",
+                    "Агапченко О.А. 3",
+                    "Агапченко О.А. 4",
+                    "Агапченко О.А. 5",
+                )
+            )
+        }
+    }
 }

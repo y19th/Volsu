@@ -52,6 +52,9 @@ internal fun DetailSubjectScreen(
             type = state.value.type,
             onAttendanceClick = {
                 handleEvents(DetailEvents.OnNavigateToUserAttendance(it))
+            },
+            onPerformanceClick = {
+                handleEvents(DetailEvents.OnNavigateToUserPerformance(it))
             }
         )
     }

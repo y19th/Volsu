@@ -9,7 +9,8 @@ import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType
 @Composable
 internal fun DetailUiSubjectType(
     type: DetailSubjectType,
-    onAttendanceClick: (String) -> Unit
+    onAttendanceClick: (String) -> Unit,
+    onPerformanceClick: (String) -> Unit
 ) {
     when (type) {
         DetailSubjectType.Attendance -> {
@@ -20,7 +21,10 @@ internal fun DetailUiSubjectType(
         }
 
         is DetailSubjectType.Performance -> {
-            PerformanceUi()
+            PerformanceUi(
+                state = DetailSubjectState.Performance.testState,
+                onUserClick = onPerformanceClick
+            )
         }
     }
 }
