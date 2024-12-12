@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.performance_detail.ui.components.subject_laboratory
+package com.volsu.unijournal.subject.attendance_detail.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -21,9 +21,9 @@ import com.volsu.unijournal.core.util.extension.shaped
 import com.volsu.unijournal.subject.subject.ui.components.subject_class.lab.rememberPassedNumberColor
 
 @Composable
-internal fun DetailLaboratoryCount(
+internal fun AttendanceTotalCell(
     passed: Int,
-    laboratoryCount: Int
+    total: Int
 ) {
     Row(
         modifier = Modifier
@@ -38,15 +38,15 @@ internal fun DetailLaboratoryCount(
     ) {
         TextMedium(
             modifier = Modifier
-                .weight(0.8f),
-            text = "Всего лабораторных работ",
+                .weight(0.75f),
+            text = "Посещение занятий",
             fontSize = 16.sp,
             color = volsuColorPalette.primaryTextColor
         )
 
         Box(
             modifier = Modifier
-                .weight(0.2f)
+                .weight(0.25f)
         ) {
             TextMedium(
                 modifier = Modifier
@@ -54,13 +54,13 @@ internal fun DetailLaboratoryCount(
                 text = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
-                            color = rememberPassedNumberColor(passed, laboratoryCount)
+                            color = rememberPassedNumberColor(passed, total)
                         )
                     ) {
                         append(passed.toString())
                     }
                     append('/')
-                    append(laboratoryCount.toString())
+                    append(total.toString())
                 },
                 fontSize = 16.sp,
                 textAlign = TextAlign.Center

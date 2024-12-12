@@ -49,7 +49,7 @@ internal class AttendanceDetailComponent(
                     .plus(Attend.empty(newId))
 
                 update {
-                    it.copy(attendanceState = newList)
+                    it.copy(attendanceState = newList, hasChanges = true)
                 }
             }
 
@@ -59,7 +59,11 @@ internal class AttendanceDetailComponent(
                         if (item.id == event.attend.id) event.attend else item
                     }
 
-                update { it.copy(attendanceState = newList) }
+                val hasChange = with(state.value.attendanceState) {
+                    size != newList.size || this != newList
+                }
+
+                update { it.copy(attendanceState = newList, hasChanges = hasChange) }
             }
 
             AttendanceDetailEvents.OnRejectChanges -> {
