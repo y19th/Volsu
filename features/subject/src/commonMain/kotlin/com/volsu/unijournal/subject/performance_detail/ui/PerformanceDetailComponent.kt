@@ -75,7 +75,7 @@ internal class PerformanceDetailComponent(
                     }
 
                 val hasChange = with(state.value.detailState) {
-                    size == newList.size && this == newList
+                    size != newList.size || this != newList
                 }
 
                 update {
@@ -97,21 +97,17 @@ internal class PerformanceDetailComponent(
     }
 
     private fun receiveEmptyInstance(id: Int): DetailState {
-        return when (state.value.detailState.firstOrNull()) {
-            is DetailLecture -> {
+        return when (state.value.type) {
+            is SubjectType.Lecture -> {
                 DetailLecture.idEmpty(id)
             }
 
-            is DetailLaboratory -> {
+            is SubjectType.Laboratory -> {
                 DetailLaboratory.idEmpty(id)
             }
 
-            is DetailSeminar -> {
+            is SubjectType.Seminar -> {
                 DetailSeminar.idEmpty(id)
-            }
-
-            null -> {
-                throw NullPointerException("null")
             }
         }
     }

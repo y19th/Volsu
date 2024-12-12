@@ -9,8 +9,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.util.extension.shaped
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLaboratory
+import com.volsu.unijournal.subject.performance_detail.domain.models.DetailState
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultEmptyTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableStickyHeader
@@ -53,4 +55,11 @@ internal fun EditableSubjectDetailLaboratory(
             onFirstClick = onAddLecture
         )
     }
+
+    VerticalSpacer(height = 12.dp)
+
+    DetailLaboratoryCount(
+        passed = state.value.count { it.performance != DetailState.placeholder },
+        laboratoryCount = state.value.size
+    )
 }

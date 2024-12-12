@@ -50,5 +50,5 @@ fun TotalPerformanceItem(
 fun rememberPassedNumberColor(number: Int, total: Int): Color {
     val color = if (number != total)
         volsuColorPalette.badGradeColor else volsuColorPalette.goodGradeColor
-    return remember(number) { color }
+    return remember(number, total) { color }
 }

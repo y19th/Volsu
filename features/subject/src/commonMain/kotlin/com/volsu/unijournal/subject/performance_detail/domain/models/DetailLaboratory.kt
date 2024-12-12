@@ -21,7 +21,7 @@ internal data class DetailLaboratory(
 ) : DetailState {
     companion object {
         val empty = DetailLaboratory(-1, VolsuDate.today, DetailState.placeholder)
-        fun idEmpty(id: Int) = DetailLecture(id, VolsuDate.today, DetailState.placeholder)
+        fun idEmpty(id: Int) = DetailLaboratory(id, VolsuDate.today, DetailState.placeholder)
     }
 
     override fun id(): Int = id
