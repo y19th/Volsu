@@ -3,24 +3,24 @@ package com.volsu.unijournal.subject.performance_detail.domain.models
 import androidx.compose.runtime.Composable
 import com.volsu.unijournal.core.util.models.VolsuDate
 
-internal fun DetailLecture.Companion.testDetailLectureState(): List<DetailLecture> {
+internal fun DetailSeminar.Companion.testDetailSeminarState(): List<DetailSeminar> {
     return listOf(
-        DetailLecture(1, VolsuDate.today, DetailState.placeholder),
-        DetailLecture(2, VolsuDate.today, 3),
-        DetailLecture(3, VolsuDate.today, DetailState.placeholder),
-        DetailLecture(4, VolsuDate.today, 4),
-        DetailLecture(5, VolsuDate.today, DetailState.placeholder),
-        DetailLecture(6, VolsuDate.today, DetailState.placeholder),
+        DetailSeminar(1, VolsuDate.today, DetailState.placeholder),
+        DetailSeminar(2, VolsuDate.today, 3),
+        DetailSeminar(3, VolsuDate.today, DetailState.placeholder),
+        DetailSeminar(4, VolsuDate.today, 4),
+        DetailSeminar(5, VolsuDate.today, DetailState.placeholder),
+        DetailSeminar(6, VolsuDate.today, DetailState.placeholder),
     )
 }
 
-internal data class DetailLecture(
+internal data class DetailSeminar(
     val id: Int,
     val date: VolsuDate,
     val performance: Int
 ) : DetailState {
     companion object {
-        val empty = DetailLecture(-1, VolsuDate.today, DetailState.placeholder)
+        val empty = DetailSeminar(-1, VolsuDate.today, DetailState.placeholder)
         fun idEmpty(id: Int) = DetailLecture(id, VolsuDate.today, DetailState.placeholder)
     }
 
@@ -44,7 +44,7 @@ internal data class DetailLecture(
 
     @Composable
     override fun firstTitle(): String {
-        return "Дата лекции"
+        return "Дата семинара"
     }
 
     @Composable

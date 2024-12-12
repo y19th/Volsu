@@ -20,9 +20,11 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.volsu.unijournal.core.ui.components.provider.fieldTextStyle
+import com.volsu.unijournal.core.ui.components.inputs.DatePickerField
+import com.volsu.unijournal.core.ui.components.texts.TextMedium
 import com.volsu.unijournal.core.util.extension.noIndicationClickable
 import com.volsu.unijournal.core.util.extension.toIntOrElse
+import com.volsu.unijournal.core.util.models.VolsuDate
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailState
 
 private val boxHeight: Dp
@@ -50,7 +52,7 @@ internal fun DefaultTableItem(
             value = subject.first(),
             editable = editable,
             onValueChange = {
-                onEditSubject(subject.copyFirst(newFirst = it))
+                onEditSubject(subject.copyFirst(newFirst = VolsuDate(it)))
             }
         )
 
@@ -67,6 +69,42 @@ internal fun DefaultTableItem(
             onValueChange = {
                 onEditSubject(subject.copySecond(newSecond = it))
             }
+        )
+    }
+
+    HorizontalDivider()
+}
+
+@Composable
+internal fun DefaultTableStickyHeader(
+    subject: DetailState
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Max)
+            .padding(vertical = 2.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        TextMedium(
+            modifier = Modifier
+                .weight(0.5f),
+            fontSize = 16.sp,
+            text = subject.firstTitle()
+        )
+
+        VerticalDivider(
+            modifier = Modifier
+                .fillMaxHeight()
+                .padding(horizontal = 4.dp)
+        )
+
+        TextMedium(
+            modifier = Modifier
+                .weight(0.2f),
+            fontSize = 16.sp,
+            text = subject.secondTitle()
         )
     }
 
@@ -109,20 +147,19 @@ internal fun DefaultEmptyTableItem(
 
 @Composable
 private fun DefaultTableCell(
-    value: String,
+    value: VolsuDate,
     modifier: Modifier = Modifier,
     editable: Boolean = true,
-    onValueChange: (String) -> Unit,
+    onValueChange: (Long) -> Unit,
 ) {
     val state = rememberUpdatedState(value)
 
-    BasicTextField(
+    DatePickerField(
         modifier = modifier
             .padding(vertical = 8.dp),
-        value = state.value,
-        readOnly = editable.not(),
-        textStyle = fieldTextStyle(),
-        onValueChange = onValueChange
+        initialDate = state.value,
+        onDateChanged = onValueChange,
+        enabled = editable
     )
 }
 

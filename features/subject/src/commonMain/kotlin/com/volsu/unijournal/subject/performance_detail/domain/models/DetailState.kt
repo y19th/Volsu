@@ -2,6 +2,9 @@
 
 package com.volsu.unijournal.subject.performance_detail.domain.models
 
+import androidx.compose.runtime.Composable
+import com.volsu.unijournal.core.util.models.VolsuDate
+
 private const val PERFORMANCE_PLACEHOLDER = -125241
 
 sealed interface DetailState {
@@ -11,9 +14,15 @@ sealed interface DetailState {
     }
 
     fun id(): Int
-    fun first(): String
+    fun first(): VolsuDate
     fun second(): Int
     fun secondAsString(): String
-    fun copyFirst(newFirst: String): DetailState
+    fun copyFirst(newFirst: VolsuDate): DetailState
     fun copySecond(newSecond: Int): DetailState
+
+    @Composable
+    fun firstTitle(): String
+
+    @Composable
+    fun secondTitle(): String
 }

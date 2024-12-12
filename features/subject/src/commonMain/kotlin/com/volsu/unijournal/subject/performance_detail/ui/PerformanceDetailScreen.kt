@@ -1,5 +1,8 @@
 package com.volsu.unijournal.subject.performance_detail.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -13,7 +16,8 @@ import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
 import com.volsu.unijournal.core.ui.components.bars.EditableIcon
 import com.volsu.unijournal.core.ui.components.bars.NavigationTopBar
-import com.volsu.unijournal.core.ui.components.texts.TextSemibold
+import com.volsu.unijournal.core.ui.components.buttons.RoundedButton
+import com.volsu.unijournal.core.ui.components.buttons.VolsuTextButton
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
 import com.volsu.unijournal.core.util.extension.collectAsImmediateState
 import com.volsu.unijournal.subject.performance_detail.domain.events.PerformanceDetailEvents
@@ -34,22 +38,20 @@ internal fun PerformanceDetailScreen(
             .verticalScroll(rememberScrollState()),
         topBar = {
             NavigationTopBar(
+                title = state.value.user,
                 navigationIcon = {
                     BackNavigationIcon { handleEvents(PerformanceDetailEvents.OnNavigateBack) }
                 },
                 trailingIcon = {
-                    EditableIcon { handleEvents(PerformanceDetailEvents.OnToggleEditableMode) }
+                    EditableIcon(
+                        editableNow = state.value.editableMode,
+                        onClick = { handleEvents(PerformanceDetailEvents.OnToggleEditableMode) }
+                    )
                 }
             )
         }
     ) {
         VerticalSpacer(height = 24.dp)
-
-        TextSemibold(
-            text = state.value.user
-        )
-
-        VerticalSpacer(height = 36.dp)
 
         PerformanceDetailUiBySubjectType(
             uncollectedState = state,
@@ -60,5 +62,27 @@ internal fun PerformanceDetailScreen(
                 handleEvents(PerformanceDetailEvents.OnAddSubject)
             }
         )
+
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
+
+        AnimatedVisibility(
+            visible = state.value.hasChanges
+        ) {
+            Column {
+                RoundedButton(
+                    title = "Сохранить изменения",
+                    onClick = { handleEvents(PerformanceDetailEvents.OnSaveChanges) }
+                )
+
+                VerticalSpacer(height = 4.dp)
+
+                VolsuTextButton(
+                    title = "Отмена",
+                    onClick = { handleEvents(PerformanceDetailEvents.OnRejectChanges) }
+                )
+            }
+        }
     }
 }

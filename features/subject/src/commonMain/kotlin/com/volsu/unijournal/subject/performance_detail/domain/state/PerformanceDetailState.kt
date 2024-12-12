@@ -9,5 +9,7 @@ internal data class PerformanceDetailState(
     val type: SubjectType,
     val editableMode: Boolean = false,
 
-    val detailState: List<DetailState> = listOf()
+    val detailState: List<DetailState> = listOf(),
+    val oldState: List<DetailState> = listOf(),
+    val hasChanges: Boolean = false
 ) : BaseState

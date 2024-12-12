@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.performance_detail.ui.components.subject_lecture
+package com.volsu.unijournal.subject.performance_detail.ui.components.subject_seminar
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,18 +10,18 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.volsu.unijournal.core.util.extension.shaped
-import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLecture
+import com.volsu.unijournal.subject.performance_detail.domain.models.DetailSeminar
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultEmptyTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableStickyHeader
 
 @Composable
-internal fun EditableSubjectDetailLecture(
-    initialState: List<DetailLecture>,
+internal fun EditableSubjectDetailSeminar(
+    initialState: List<DetailSeminar>,
     editableMode: Boolean,
     modifier: Modifier = Modifier,
-    onLectureChange: (DetailLecture) -> Unit,
-    onAddLecture: () -> Unit
+    onSeminarChange: (DetailSeminar) -> Unit,
+    onAddSeminar: () -> Unit
 ) {
     val state = rememberUpdatedState(initialState)
 
@@ -36,21 +36,21 @@ internal fun EditableSubjectDetailLecture(
             .then(modifier),
         verticalArrangement = Arrangement.Center
     ) {
-        DefaultTableStickyHeader(DetailLecture.empty)
+        DefaultTableStickyHeader(DetailSeminar.empty)
 
-        state.value.forEach { lecture ->
+        state.value.forEach { seminar ->
             DefaultTableItem(
-                subject = lecture,
+                subject = seminar,
                 editable = editableMode,
                 onEditSubject = {
-                    onLectureChange(it as DetailLecture)
+                    onSeminarChange(it as DetailSeminar)
                 }
             )
         }
 
         DefaultEmptyTableItem(
             editable = editableMode,
-            onFirstClick = onAddLecture
+            onFirstClick = onAddSeminar
         )
     }
 }

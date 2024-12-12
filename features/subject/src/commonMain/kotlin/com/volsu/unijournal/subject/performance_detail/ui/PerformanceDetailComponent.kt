@@ -5,9 +5,13 @@ import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.core.util.models.SnackState
 import com.volsu.unijournal.subject.performance_detail.domain.events.PerformanceDetailEvents
+import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLaboratory
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLecture
+import com.volsu.unijournal.subject.performance_detail.domain.models.DetailSeminar
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailState
+import com.volsu.unijournal.subject.performance_detail.domain.models.testDetailLaboratoryState
 import com.volsu.unijournal.subject.performance_detail.domain.models.testDetailLectureState
+import com.volsu.unijournal.subject.performance_detail.domain.models.testDetailSeminarState
 import com.volsu.unijournal.subject.performance_detail.domain.state.PerformanceDetailState
 import com.volsu.unijournal.subject.root.SubjectNavigator
 
@@ -21,7 +25,14 @@ internal class PerformanceDetailComponent(
     componentContext = componentContext
 ) {
     init {
-        update { it.copy(detailState = DetailLecture.testDetailLectureState()) }
+        type.testState().let { state ->
+            update {
+                it.copy(
+                    detailState = state,
+                    oldState = state
+                )
+            }
+        }
     }
 
     override fun handleEvent(event: PerformanceDetailEvents) {
@@ -34,8 +45,11 @@ internal class PerformanceDetailComponent(
                 update { it.copy(editableMode = !state.value.editableMode) }
                     .also {
                         state.value.editableMode.let { editable ->
+                            val message = editable.editableMessage()
                             val snackState = if (editable)
-                                SnackState.success(editable.editableMessage()) else SnackState.failure(editable.editableMessage())
+                                SnackState.success(message) else SnackState.failure(message)
+
+                            snackEffect(snackState)
                         }
                     }
             }
@@ -50,7 +64,7 @@ internal class PerformanceDetailComponent(
                     .plus(receiveEmptyInstance(newId))
 
                 update {
-                    it.copy(detailState = newList)
+                    it.copy(detailState = newList, hasChanges = true)
                 }
             }
 
@@ -60,7 +74,24 @@ internal class PerformanceDetailComponent(
                         if (item.id() == event.subject.id()) event.subject else item
                     }
 
-                update { it.copy(detailState = newList) }
+                val hasChange = with(state.value.detailState) {
+                    size == newList.size && this == newList
+                }
+
+                update {
+                    it.copy(
+                        detailState = newList,
+                        hasChanges = hasChange
+                    )
+                }
+            }
+
+            PerformanceDetailEvents.OnRejectChanges -> {
+                update { it.copy(hasChanges = false, detailState = state.value.oldState) }
+            }
+
+            PerformanceDetailEvents.OnSaveChanges -> {
+                update { it.copy(hasChanges = false, oldState = state.value.detailState) }
             }
         }
     }
@@ -71,9 +102,31 @@ internal class PerformanceDetailComponent(
                 DetailLecture.idEmpty(id)
             }
 
+            is DetailLaboratory -> {
+                DetailLaboratory.idEmpty(id)
+            }
+
+            is DetailSeminar -> {
+                DetailSeminar.idEmpty(id)
+            }
+
             null -> {
                 throw NullPointerException("null")
             }
+        }
+    }
+
+    private fun SubjectType.testState(): List<DetailState> = when (this) {
+        SubjectType.Laboratory -> {
+            DetailLaboratory.testDetailLaboratoryState()
+        }
+
+        SubjectType.Lecture -> {
+            DetailLecture.testDetailLectureState()
+        }
+
+        SubjectType.Seminar -> {
+            DetailSeminar.testDetailSeminarState()
         }
     }
 

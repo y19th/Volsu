@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.performance_detail.ui.components.subject_lecture
+package com.volsu.unijournal.subject.performance_detail.ui.components.subject_laboratory
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,17 +10,17 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.volsu.unijournal.core.util.extension.shaped
-import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLecture
+import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLaboratory
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultEmptyTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableStickyHeader
 
 @Composable
-internal fun EditableSubjectDetailLecture(
-    initialState: List<DetailLecture>,
+internal fun EditableSubjectDetailLaboratory(
+    initialState: List<DetailLaboratory>,
     editableMode: Boolean,
     modifier: Modifier = Modifier,
-    onLectureChange: (DetailLecture) -> Unit,
+    onLectureChange: (DetailLaboratory) -> Unit,
     onAddLecture: () -> Unit
 ) {
     val state = rememberUpdatedState(initialState)
@@ -36,14 +36,14 @@ internal fun EditableSubjectDetailLecture(
             .then(modifier),
         verticalArrangement = Arrangement.Center
     ) {
-        DefaultTableStickyHeader(DetailLecture.empty)
+        DefaultTableStickyHeader(DetailLaboratory.empty)
 
         state.value.forEach { lecture ->
             DefaultTableItem(
                 subject = lecture,
                 editable = editableMode,
                 onEditSubject = {
-                    onLectureChange(it as DetailLecture)
+                    onLectureChange(it as DetailLaboratory)
                 }
             )
         }
