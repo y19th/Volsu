@@ -72,6 +72,8 @@ internal class PerformanceDetailComponent(
                 val newList = state.value.detailState
                     .map { item ->
                         if (item.id() == event.subject.id()) event.subject else item
+                    }.sortedBy {
+                        it.first().millis
                     }
 
                 val hasChange = with(state.value.detailState) {

@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 @Composable
 internal fun AttendanceCheckbox(
     initialValue: Boolean,
+    editable: Boolean,
     modifier: Modifier = Modifier,
     onValueChange: (Boolean) -> Unit
 ) {
@@ -16,6 +17,7 @@ internal fun AttendanceCheckbox(
     Checkbox(
         modifier = modifier,
         checked = state.value,
+        enabled = editable,
         onCheckedChange = onValueChange,
     )
 }

@@ -5,5 +5,8 @@ import com.volsu.unijournal.subject.attendance_detail.domain.models.Attend
 
 internal data class AttendanceDetailState(
     val user: String,
-    val attendanceState: List<Attend> = listOf()
+    val attendanceState: List<Attend> = listOf(),
+    val oldState: List<Attend> = listOf(),
+    val editableMode: Boolean = false,
+    val hasChanges: Boolean = false
 ): BaseState

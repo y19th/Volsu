@@ -1,4 +1,4 @@
-package com.volsu.unijournal.subject.performance_detail.ui.components
+package com.volsu.unijournal.subject.attendance_detail.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -8,41 +8,29 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.text.BasicTextField
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.volsu.unijournal.core.ui.components.inputs.DatePickerField
 import com.volsu.unijournal.core.ui.components.texts.TextMedium
 import com.volsu.unijournal.core.util.extension.noIndicationClickable
-import com.volsu.unijournal.core.util.extension.toIntOrElse
 import com.volsu.unijournal.core.util.models.VolsuDate
-import com.volsu.unijournal.subject.performance_detail.domain.models.DetailState
+import com.volsu.unijournal.subject.attendance_detail.domain.models.Attend
+import com.volsu.unijournal.subject.subject.domain.models.attendanceMark
 
-private val boxHeight: Dp
-    @Composable
-    get() = with(LocalDensity.current) {
-        16.dp + 16.sp.toDp()
-    }
 
-private const val numberWeight = 0.2f
+private const val checkboxWeight = 0.25f
 private const val dateWeight = 0.5f
 
 @Composable
-internal fun DefaultTableItem(
-    subject: DetailState,
+internal fun AttendanceTableItem(
+    attend: Attend,
     editable: Boolean,
-    onEditSubject: (DetailState) -> Unit
+    onEditAttend: (Attend) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -51,13 +39,13 @@ internal fun DefaultTableItem(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
-        DefaultTableCell(
+        AttendanceTableCell(
             modifier = Modifier
                 .weight(dateWeight),
-            value = subject.first(),
+            value = attend.date,
             editable = editable,
             onValueChange = {
-                onEditSubject(subject.copyFirst(newFirst = VolsuDate(it)))
+                onEditAttend(attend.copy(date = VolsuDate(it)))
             }
         )
 
@@ -67,13 +55,13 @@ internal fun DefaultTableItem(
                 .padding(horizontal = 4.dp)
         )
 
-        DefaultNumberTableCell(
+        AttendanceCheckbox(
             modifier = Modifier
-                .weight(numberWeight),
-            value = subject.secondAsString(),
+                .weight(checkboxWeight),
+            initialValue = attend.was.boolean,
             editable = editable,
             onValueChange = {
-                onEditSubject(subject.copySecond(newSecond = it))
+                onEditAttend(attend.copy(was = it.attendanceMark()))
             }
         )
     }
@@ -82,9 +70,7 @@ internal fun DefaultTableItem(
 }
 
 @Composable
-internal fun DefaultTableStickyHeader(
-    subject: DetailState
-) {
+internal fun AttendanceTableItemHeader() {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -97,7 +83,7 @@ internal fun DefaultTableStickyHeader(
             modifier = Modifier
                 .weight(dateWeight),
             fontSize = 16.sp,
-            text = subject.firstTitle()
+            text = "Дата занятия"
         )
 
         VerticalDivider(
@@ -108,9 +94,9 @@ internal fun DefaultTableStickyHeader(
 
         TextMedium(
             modifier = Modifier
-                .weight(numberWeight),
+                .weight(checkboxWeight),
             fontSize = 16.sp,
-            text = subject.secondTitle()
+            text = "Посещение"
         )
     }
 
@@ -118,7 +104,7 @@ internal fun DefaultTableStickyHeader(
 }
 
 @Composable
-internal fun DefaultEmptyTableItem(
+internal fun EmptyAttendanceTableItem(
     editable: Boolean,
     onFirstClick: () -> Unit
 ) {
@@ -129,13 +115,14 @@ internal fun DefaultEmptyTableItem(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(boxHeight)
+            .height(36.dp)
             .then(modifier),
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Box(
-            modifier = Modifier.weight(dateWeight)
+            modifier = Modifier
+                .weight(dateWeight),
         )
 
         VerticalDivider(
@@ -144,50 +131,9 @@ internal fun DefaultEmptyTableItem(
                 .padding(horizontal = 4.dp)
         )
 
-
         Box(
-            modifier = Modifier.weight(numberWeight)
+            modifier = Modifier
+                .weight(checkboxWeight)
         )
     }
-}
-
-@Composable
-private fun DefaultTableCell(
-    value: VolsuDate,
-    modifier: Modifier = Modifier,
-    editable: Boolean = true,
-    onValueChange: (Long) -> Unit,
-) {
-    val state = rememberUpdatedState(value)
-
-    DatePickerField(
-        modifier = modifier
-            .padding(vertical = 8.dp),
-        initialDate = state.value,
-        onDateChanged = onValueChange,
-        enabled = editable
-    )
-}
-
-@Composable
-private fun DefaultNumberTableCell(
-    value: String,
-    modifier: Modifier = Modifier,
-    editable: Boolean = true,
-    onValueChange: (Int) -> Unit
-) {
-    val state = rememberUpdatedState(value)
-
-    BasicTextField(
-        modifier = modifier,
-        value = state.value,
-        readOnly = editable.not(),
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number
-        ),
-        onValueChange = {
-            if (it.length <= 2)
-                onValueChange(it.toIntOrElse(DetailState.placeholder))
-        }
-    )
 }

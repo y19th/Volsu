@@ -51,8 +51,6 @@ internal fun PerformanceDetailScreen(
             )
         }
     ) {
-        VerticalSpacer(height = 24.dp)
-
         PerformanceDetailUiBySubjectType(
             uncollectedState = state,
             onSubjectChange = {
@@ -71,6 +69,8 @@ internal fun PerformanceDetailScreen(
             visible = state.value.hasChanges
         ) {
             Column {
+                VerticalSpacer(height = 16.dp)
+
                 RoundedButton(
                     title = "Сохранить изменения",
                     onClick = { handleEvents(PerformanceDetailEvents.OnSaveChanges) }

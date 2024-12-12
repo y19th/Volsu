@@ -1,11 +1,14 @@
 package com.volsu.unijournal.subject.performance_detail.ui.components.subject_laboratory
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,6 +29,9 @@ internal fun EditableSubjectDetailLaboratory(
     onAddLecture: () -> Unit
 ) {
     val state = rememberUpdatedState(initialState)
+    val passedLaboratories = remember(state.value) {
+        derivedStateOf { state.value.count { it.performance != DetailState.placeholder } }
+    }
 
     Column(
         modifier = Modifier
@@ -35,6 +41,7 @@ internal fun EditableSubjectDetailLaboratory(
                 borderWidth = 0.5.dp
             )
             .padding(vertical = 16.dp, horizontal = 12.dp)
+            .animateContentSize()
             .then(modifier),
         verticalArrangement = Arrangement.Center
     ) {
@@ -59,7 +66,7 @@ internal fun EditableSubjectDetailLaboratory(
     VerticalSpacer(height = 12.dp)
 
     DetailLaboratoryCount(
-        passed = state.value.count { it.performance != DetailState.placeholder },
+        passed = passedLaboratories.value,
         laboratoryCount = state.value.size
     )
 }

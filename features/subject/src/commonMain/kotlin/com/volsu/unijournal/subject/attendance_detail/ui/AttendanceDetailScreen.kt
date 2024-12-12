@@ -1,5 +1,8 @@
 package com.volsu.unijournal.subject.attendance_detail.ui
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
@@ -11,8 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
+import com.volsu.unijournal.core.ui.components.bars.EditableIcon
 import com.volsu.unijournal.core.ui.components.bars.NavigationTopBar
-import com.volsu.unijournal.core.ui.components.texts.TextSemibold
+import com.volsu.unijournal.core.ui.components.buttons.RoundedButton
+import com.volsu.unijournal.core.ui.components.buttons.VolsuTextButton
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
 import com.volsu.unijournal.core.util.extension.collectAsImmediateState
 import com.volsu.unijournal.subject.attendance_detail.domain.events.AttendanceDetailEvents
@@ -33,22 +38,21 @@ internal fun AttendanceDetailScreen(
             .verticalScroll(rememberScrollState()),
         topBar = {
             NavigationTopBar(
+                title = state.value.user,
                 navigationIcon = {
                     BackNavigationIcon { handleEvents(AttendanceDetailEvents.OnNavigateBack) }
+                },
+                trailingIcon = {
+                    EditableIcon(
+                        editableNow = state.value.editableMode,
+                        onClick = { handleEvents(AttendanceDetailEvents.OnToggleEditableMode) }
+                    )
                 }
             )
         }
     ) {
-        VerticalSpacer(height = 24.dp)
-
-        TextSemibold(
-            text = state.value.user
-        )
-
-        VerticalSpacer(height = 36.dp)
-
         EditableAttendanceTable(
-            initialAttendance = state.value.attendanceState,
+            uncollectedState = state,
             onEditAttend = {
                 handleEvents(AttendanceDetailEvents.OnEditAttend(it))
             },
@@ -56,5 +60,29 @@ internal fun AttendanceDetailScreen(
                 handleEvents(AttendanceDetailEvents.OnAddNewAttend)
             }
         )
+
+        Spacer(
+            modifier = Modifier.weight(1f)
+        )
+
+        AnimatedVisibility(
+            visible = state.value.hasChanges
+        ) {
+            Column {
+                VerticalSpacer(height = 16.dp)
+
+                RoundedButton(
+                    title = "Сохранить изменения",
+                    onClick = { handleEvents(AttendanceDetailEvents.OnSaveChanges) }
+                )
+
+                VerticalSpacer(height = 4.dp)
+
+                VolsuTextButton(
+                    title = "Отмена",
+                    onClick = { handleEvents(AttendanceDetailEvents.OnRejectChanges) }
+                )
+            }
+        }
     }
 }

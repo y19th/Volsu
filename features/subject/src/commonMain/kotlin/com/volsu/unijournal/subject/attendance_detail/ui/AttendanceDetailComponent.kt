@@ -2,6 +2,7 @@ package com.volsu.unijournal.subject.attendance_detail.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
+import com.volsu.unijournal.core.util.models.SnackState
 import com.volsu.unijournal.subject.attendance_detail.domain.events.AttendanceDetailEvents
 import com.volsu.unijournal.subject.attendance_detail.domain.models.Attend
 import com.volsu.unijournal.subject.attendance_detail.domain.state.AttendanceDetailState
@@ -23,6 +24,19 @@ internal class AttendanceDetailComponent(
         when (event) {
             AttendanceDetailEvents.OnNavigateBack -> {
                 navigate { navigator.pop() }
+            }
+
+            AttendanceDetailEvents.OnToggleEditableMode -> {
+                update { it.copy(editableMode = !state.value.editableMode) }
+                    .also {
+                        state.value.editableMode.let { editable ->
+                            val message = editable.editableMessage()
+                            val snackState = if (editable)
+                                SnackState.success(message) else SnackState.failure(message)
+
+                            snackEffect(snackState)
+                        }
+                    }
             }
 
             is AttendanceDetailEvents.OnAddNewAttend -> {
@@ -47,7 +61,19 @@ internal class AttendanceDetailComponent(
 
                 update { it.copy(attendanceState = newList) }
             }
+
+            AttendanceDetailEvents.OnRejectChanges -> {
+                update { it.copy(hasChanges = false, attendanceState = state.value.oldState) }
+            }
+
+            AttendanceDetailEvents.OnSaveChanges -> {
+                update { it.copy(hasChanges = false, oldState = state.value.attendanceState) }
+            }
         }
     }
 
+    private fun Boolean.editableMessage(): String {
+        return if (this)
+            "Вы включили режим редактирования" else "Режим редактирования отключен"
+    }
 }

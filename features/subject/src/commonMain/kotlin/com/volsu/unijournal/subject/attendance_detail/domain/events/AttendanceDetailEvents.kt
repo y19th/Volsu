@@ -9,5 +9,11 @@ internal sealed interface AttendanceDetailEvents : BaseEvents {
 
     data object OnAddNewAttend : AttendanceDetailEvents
 
+    data object OnToggleEditableMode: AttendanceDetailEvents
+
+    data object OnSaveChanges: AttendanceDetailEvents
+
+    data object OnRejectChanges: AttendanceDetailEvents
+
     data class OnEditAttend(val attend: Attend) : AttendanceDetailEvents
 }

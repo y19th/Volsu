@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -48,10 +49,11 @@ internal fun DetailLaboratoryCount(
 
         Box(
             modifier = Modifier
-                .weight(0.2f),
-            contentAlignment = Alignment.Center
+                .weight(0.2f)
         ) {
             TextMedium(
+                modifier = Modifier
+                    .fillMaxWidth(),
                 text = buildAnnotatedString {
                     withStyle(
                         style = SpanStyle(
@@ -63,7 +65,8 @@ internal fun DetailLaboratoryCount(
                     append('/')
                     append(laboratoryCount.toString())
                 },
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                textAlign = TextAlign.Center
             )
         }
     }
