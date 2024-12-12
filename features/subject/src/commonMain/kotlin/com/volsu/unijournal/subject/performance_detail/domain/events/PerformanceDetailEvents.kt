@@ -9,5 +9,7 @@ internal sealed interface PerformanceDetailEvents: BaseEvents {
 
     data object OnAddSubject: PerformanceDetailEvents
 
+    data object OnToggleEditableMode: PerformanceDetailEvents
+
     data class OnSubjectChange(val subject: DetailState): PerformanceDetailEvents
 }

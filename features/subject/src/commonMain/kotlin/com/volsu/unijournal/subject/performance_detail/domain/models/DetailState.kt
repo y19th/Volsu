@@ -10,6 +10,7 @@ sealed interface DetailState {
         const val placeholder = PERFORMANCE_PLACEHOLDER
     }
 
+    fun id(): Int
     fun first(): String
     fun second(): Int
     fun secondAsString(): String

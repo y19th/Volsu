@@ -18,8 +18,10 @@ internal data class DetailLecture(
 ) : DetailState {
     companion object {
         val empty = DetailLecture(-1, "", DetailState.placeholder)
-
+        fun idEmpty(id: Int) = DetailLecture(id, "", DetailState.placeholder)
     }
+
+    override fun id(): Int = id
 
     override fun first(): String = date
 

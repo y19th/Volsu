@@ -2,7 +2,11 @@ package com.volsu.unijournal.subject.subject.domain.models
 
 internal data class LectureState(
     val performance: List<Pair<String, PerformancePoints>>
-)
+) {
+    companion object {
+        val empty = LectureState(performance = listOf())
+    }
+}
 
 internal fun lectureTestState() = LectureState(
     performance = listOf(

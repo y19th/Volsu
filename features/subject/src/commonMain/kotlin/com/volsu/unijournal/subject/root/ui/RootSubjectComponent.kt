@@ -36,7 +36,7 @@ class RootSubjectComponent(
             Child.DetailChild(
                 getComponent(
                     context = componentContext,
-                    param = configuration.type
+                    params = arrayOf(configuration.type, configuration.subjectType)
                 )
             )
         }

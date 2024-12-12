@@ -11,11 +11,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.volsu.unijournal.core.util.extension.shaped
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLecture
+import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultEmptyTableItem
 import com.volsu.unijournal.subject.performance_detail.ui.components.DefaultTableItem
 
 @Composable
 internal fun EditableSubjectDetailLecture(
     initialState: List<DetailLecture>,
+    editableMode: Boolean,
     modifier: Modifier = Modifier,
     onLectureChange: (DetailLecture) -> Unit,
     onAddLecture: () -> Unit
@@ -36,10 +38,16 @@ internal fun EditableSubjectDetailLecture(
         state.value.forEach { lecture ->
             DefaultTableItem(
                 subject = lecture,
+                editable = editableMode,
                 onEditSubject = {
                     onLectureChange(it as DetailLecture)
                 }
             )
         }
+
+        DefaultEmptyTableItem(
+            editable = editableMode,
+            onFirstClick = onAddLecture
+        )
     }
 }
