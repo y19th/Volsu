@@ -1,7 +1,5 @@
 package com.volsu.unijournal.subject.attendance_detail.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
@@ -11,13 +9,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.volsu.unijournal.core.ui.components.VerticalSpacer
+import com.volsu.unijournal.core.ui.components.AnimatedChanges
 import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
 import com.volsu.unijournal.core.ui.components.bars.EditableIcon
 import com.volsu.unijournal.core.ui.components.bars.NavigationTopBar
-import com.volsu.unijournal.core.ui.components.buttons.RoundedButton
-import com.volsu.unijournal.core.ui.components.buttons.VolsuTextButton
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
 import com.volsu.unijournal.core.util.extension.collectAsImmediateState
 import com.volsu.unijournal.subject.attendance_detail.domain.events.AttendanceDetailEvents
@@ -65,24 +61,14 @@ internal fun AttendanceDetailScreen(
             modifier = Modifier.weight(1f)
         )
 
-        AnimatedVisibility(
-            visible = state.value.hasChanges
-        ) {
-            Column {
-                VerticalSpacer(height = 16.dp)
-
-                RoundedButton(
-                    title = "Сохранить изменения",
-                    onClick = { handleEvents(AttendanceDetailEvents.OnSaveChanges) }
-                )
-
-                VerticalSpacer(height = 4.dp)
-
-                VolsuTextButton(
-                    title = "Отмена",
-                    onClick = { handleEvents(AttendanceDetailEvents.OnRejectChanges) }
-                )
+        AnimatedChanges(
+            visible = state.value.hasChanges,
+            onCommit = {
+                handleEvents(AttendanceDetailEvents.OnSaveChanges)
+            },
+            onDiscard = {
+                handleEvents(AttendanceDetailEvents.OnRejectChanges)
             }
-        }
+        )
     }
 }

@@ -1,7 +1,5 @@
 package com.volsu.unijournal.subject.today_attendance.ui
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -13,13 +11,12 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.volsu.unijournal.core.ui.components.AnimatedChanges
 import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.BackNavigationIcon
 import com.volsu.unijournal.core.ui.components.bars.EditableIcon
 import com.volsu.unijournal.core.ui.components.bars.NavigationTopBar
-import com.volsu.unijournal.core.ui.components.buttons.RoundedButton
-import com.volsu.unijournal.core.ui.components.buttons.VolsuTextButton
 import com.volsu.unijournal.core.ui.components.texts.TextMedium
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import com.volsu.unijournal.core.util.base_components.rememberHandleEvents
@@ -85,25 +82,14 @@ internal fun TodayAttendanceScreen(
 
         VerticalSpacer(height = 32.dp)
 
-        AnimatedVisibility(
-            visible = state.value.hasChanges
-        ) {
-            Column {
-                VerticalSpacer(height = 16.dp)
-
-                RoundedButton(
-                    title = "Сохранить изменения",
-                    onClick = { handleEvents(TodayAttendanceEvents.OnCommitChanges) }
-                )
-
-                VerticalSpacer(height = 4.dp)
-
-                VolsuTextButton(
-                    title = "Отмена",
-                    onClick = { handleEvents(TodayAttendanceEvents.OnDiscardChanges) }
-                )
+        AnimatedChanges(
+            visible = state.value.hasChanges,
+            onCommit = {
+                handleEvents(TodayAttendanceEvents.OnCommitChanges)
+            },
+            onDiscard = {
+                handleEvents(TodayAttendanceEvents.OnDiscardChanges)
             }
-
-        }
+        )
     }
 }
