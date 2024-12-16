@@ -38,6 +38,15 @@ internal fun TeacherSubjectContent(
             handleEvents(SubjectEvents.OnNavigateToDetail(Performance(subjectForm)))
         }
     )
+
+    VerticalSpacer(height = 8.dp)
+
+    TeacherItem(
+        text = "Посещение за сегодня",
+        onClick = {
+            handleEvents(SubjectEvents.OnNavigateToTodayAttendance(Performance(subjectForm)))
+        }
+    )
 }
 
 @Composable

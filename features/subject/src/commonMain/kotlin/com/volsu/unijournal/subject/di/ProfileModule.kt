@@ -5,6 +5,7 @@ import com.volsu.unijournal.subject.detail.ui.DetailSubjectComponent
 import com.volsu.unijournal.subject.performance_detail.ui.PerformanceDetailComponent
 import com.volsu.unijournal.subject.root.ui.RootSubjectComponent
 import com.volsu.unijournal.subject.subject.ui.SubjectComponent
+import com.volsu.unijournal.subject.today_attendance.ui.TodayAttendanceComponent
 import org.koin.core.module.dsl.factoryOf
 import org.koin.dsl.module
 
@@ -14,4 +15,5 @@ val subjectModule = module {
     factoryOf(::DetailSubjectComponent)
     factoryOf(::AttendanceDetailComponent)
     factoryOf(::PerformanceDetailComponent)
+    factoryOf(::TodayAttendanceComponent)
 }

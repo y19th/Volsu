@@ -13,6 +13,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.volsu.unijournal.core.domain.models.Group
 import com.volsu.unijournal.core.ui.components.VerticalSpacer
 import com.volsu.unijournal.core.ui.components.VolsuColumn
 import com.volsu.unijournal.core.ui.components.bars.SettingsIcon
@@ -30,7 +31,7 @@ internal fun MainScreen(
     val state = component.state.collectAsState()
     val handleEvents = component.rememberHandleEvents()
     val testList = remember {
-        listOf("ISTb-211", "ИСТб-211", "МОСб-122")
+        Group.testList
     }
 
     LaunchedEffect(Unit) {

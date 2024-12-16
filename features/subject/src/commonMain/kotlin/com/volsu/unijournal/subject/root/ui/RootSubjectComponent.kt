@@ -5,24 +5,27 @@ import com.arkivanov.decompose.router.stack.childStack
 import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.BaseComponent
 import com.volsu.unijournal.core.util.extension.getComponent
+import com.volsu.unijournal.core.util.models.GroupConfig
 import com.volsu.unijournal.subject.attendance_detail.ui.AttendanceDetailComponent
 import com.volsu.unijournal.subject.detail.ui.DetailSubjectComponent
 import com.volsu.unijournal.subject.performance_detail.ui.PerformanceDetailComponent
 import com.volsu.unijournal.subject.root.SubjectNavigator
 import com.volsu.unijournal.subject.root.domain.models.DetailSubjectType
 import com.volsu.unijournal.subject.subject.ui.SubjectComponent
+import com.volsu.unijournal.subject.today_attendance.ui.TodayAttendanceComponent
 import kotlinx.serialization.Serializable
 
 class RootSubjectComponent(
     componentContext: ComponentContext,
     navigator: SubjectNavigator,
-    subject: String,
-    type: SubjectType
+    private val subject: String,
+    private val type: SubjectType,
+    private val group: GroupConfig
 ) : BaseComponent(componentContext) {
 
     val childStack = childStack(
         source = navigator.navigation,
-        initialConfiguration = Configuration.MainConfiguration(subject, type),
+        initialConfiguration = Configuration.MainConfiguration,
         serializer = Configuration.serializer(),
         handleBackButton = true,
         childFactory = ::createChild
@@ -36,7 +39,7 @@ class RootSubjectComponent(
             Child.DetailChild(
                 getComponent(
                     context = componentContext,
-                    params = arrayOf(configuration.type, configuration.subjectType)
+                    params = arrayOf(configuration.type, type)
                 )
             )
         }
@@ -45,7 +48,7 @@ class RootSubjectComponent(
             Child.MainChild(
                 getComponent(
                     context = componentContext,
-                    params = arrayOf(configuration.subject, configuration.type)
+                    params = arrayOf(subject, type, group)
                 )
             )
         }
@@ -63,7 +66,16 @@ class RootSubjectComponent(
             Child.PerformanceDetailChild(
                 getComponent(
                     context = componentContext,
-                    params = arrayOf(configuration.user, configuration.type)
+                    params = arrayOf(configuration.user, type)
+                )
+            )
+        }
+
+        is Configuration.TodayAttendanceConfiguration -> {
+            Child.TodayAttendanceChild(
+                getComponent(
+                    context = componentContext,
+                    params = arrayOf(type, group)
                 )
             )
         }
@@ -80,21 +92,20 @@ class RootSubjectComponent(
 
         internal data class PerformanceDetailChild(val component: PerformanceDetailComponent) :
             Child()
+
+        internal data class TodayAttendanceChild(val component: TodayAttendanceComponent) :
+            Child()
     }
 
     @Serializable
     sealed class Configuration {
 
         @Serializable
-        data class MainConfiguration(
-            val subject: String,
-            val type: SubjectType,
-        ) : Configuration()
+        data object MainConfiguration : Configuration()
 
         @Serializable
         data class DetailConfiguration(
-            val type: DetailSubjectType,
-            val subjectType: SubjectType
+            val type: DetailSubjectType
         ) : Configuration()
 
         @Serializable
@@ -103,9 +114,11 @@ class RootSubjectComponent(
         ) : Configuration()
 
         @Serializable
+        data object TodayAttendanceConfiguration : Configuration()
+
+        @Serializable
         data class PerformanceDetailConfiguration(
-            val user: String,
-            val type: SubjectType
+            val user: String
         ) : Configuration()
     }
 }

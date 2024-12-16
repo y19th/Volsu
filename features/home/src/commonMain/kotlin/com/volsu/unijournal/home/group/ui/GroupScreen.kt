@@ -54,7 +54,7 @@ internal fun GroupScreen(
             .padding(horizontal = 12.dp),
         topBar = {
             NavigationTopBar(
-                title = state.value.groupModel,
+                title = state.value.group.name,
                 navigationIcon = {
                     BackNavigationIcon { handleEvents(GroupEvents.OnNavigateBack) }
                 },

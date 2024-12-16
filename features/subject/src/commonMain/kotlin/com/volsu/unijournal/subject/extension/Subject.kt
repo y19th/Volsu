@@ -52,6 +52,12 @@ fun rememberSubjectFormIcon(form: SubjectForm): ImageVector {
     }
 }
 
+internal fun Boolean.editableMessage(): String {
+    return if (this)
+        "Вы включили режим редактирования" else "Режим редактирования отключен"
+}
+
+
 @Composable
 internal fun Pair<String, Int>.colorByGrade(): Color {
     val color = if (second < 60)

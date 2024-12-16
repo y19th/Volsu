@@ -39,7 +39,6 @@ internal class DetailSubjectComponent(
                     navigator.handleConfiguration(
                         RootSubjectComponent.Configuration.PerformanceDetailConfiguration(
                             user = event.user,
-                            type = subjectType
                         )
                     )
                 }

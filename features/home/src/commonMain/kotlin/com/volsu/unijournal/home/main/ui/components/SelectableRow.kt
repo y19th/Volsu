@@ -15,13 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.volsu.unijournal.core.domain.models.Group
 import com.volsu.unijournal.core.ui.components.texts.TextRegular
 import com.volsu.unijournal.core.ui.theme.volsuColorPalette
 import com.volsu.unijournal.core.util.extension.shaped
 
 @Composable
 internal fun SelectableRow(
-    text: String,
+    text: Group,
     onClick: () -> Unit,
     icon: ImageVector,
     modifier: Modifier = Modifier
@@ -51,7 +52,7 @@ internal fun SelectableRow(
                 tint = volsuColorPalette.primaryColor
             )
             TextRegular(
-                text = text,
+                text = text.name,
                 fontSize = 16.sp,
                 color = volsuColorPalette.primaryTextColor
             )

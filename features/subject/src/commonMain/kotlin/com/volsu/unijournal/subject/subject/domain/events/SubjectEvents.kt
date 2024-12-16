@@ -8,4 +8,6 @@ internal sealed interface SubjectEvents: BaseEvents {
     data object OnNavigateBack: SubjectEvents
 
     data class OnNavigateToDetail(val type: DetailSubjectType): SubjectEvents
+
+    data class OnNavigateToTodayAttendance(val type: DetailSubjectType): SubjectEvents
 }

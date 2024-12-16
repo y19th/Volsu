@@ -2,9 +2,9 @@ package com.volsu.unijournal.subject.subject.ui
 
 import com.arkivanov.decompose.ComponentContext
 import com.volsu.unijournal.core.domain.mapper.toSubjectForm
-import com.volsu.unijournal.core.domain.mapper.toSubjectType
 import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
+import com.volsu.unijournal.core.util.models.GroupConfig
 import com.volsu.unijournal.subject.root.SubjectNavigator
 import com.volsu.unijournal.subject.root.ui.RootSubjectComponent
 import com.volsu.unijournal.subject.subject.domain.events.SubjectEvents
@@ -14,6 +14,7 @@ internal class SubjectComponent(
     componentContext: ComponentContext,
     subject: String,
     type: SubjectType,
+    private val group: GroupConfig,
     private val navigator: SubjectNavigator
 ) : ScreenComponent<SubjectState, SubjectEvents>(
     initialState = SubjectState(
@@ -33,8 +34,15 @@ internal class SubjectComponent(
                     navigator.handleConfiguration(
                         RootSubjectComponent.Configuration.DetailConfiguration(
                             type = event.type,
-                            subjectType = state.value.form.toSubjectType()
                         )
+                    )
+                }
+            }
+
+            is SubjectEvents.OnNavigateToTodayAttendance -> {
+                navigate {
+                    navigator.handleConfiguration(
+                        RootSubjectComponent.Configuration.TodayAttendanceConfiguration
                     )
                 }
             }

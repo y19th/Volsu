@@ -9,6 +9,7 @@ import com.volsu.unijournal.subject.attendance_detail.ui.AttendanceDetailScreen
 import com.volsu.unijournal.subject.detail.ui.DetailSubjectScreen
 import com.volsu.unijournal.subject.performance_detail.ui.PerformanceDetailScreen
 import com.volsu.unijournal.subject.subject.ui.SubjectScreen
+import com.volsu.unijournal.subject.today_attendance.ui.TodayAttendanceScreen
 
 @Composable
 fun RootSubjectScreen(
@@ -35,6 +36,10 @@ fun RootSubjectScreen(
 
             is RootSubjectComponent.Child.PerformanceDetailChild -> {
                 PerformanceDetailScreen(component = instance.component)
+            }
+
+            is RootSubjectComponent.Child.TodayAttendanceChild -> {
+                TodayAttendanceScreen(component = instance.component)
             }
         }
     }

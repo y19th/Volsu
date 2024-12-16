@@ -28,3 +28,10 @@ fun LocalDateTime.formatted(): String {
     }
     return format(format)
 }
+
+fun LocalDate.formatted(): String {
+    val format = LocalDate.Format {
+        dayOfMonth(); char('.'); monthNumber(); char('.'); year()
+    }
+    return format(format)
+}

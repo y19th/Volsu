@@ -1,6 +1,7 @@
 package com.volsu.unijournal.home.main.ui
 
 import com.arkivanov.decompose.ComponentContext
+import com.volsu.unijournal.core.domain.mapper.asConfig
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.core.util.local.VolsuSettings
 import com.volsu.unijournal.home.main.domain.events.MainEvents
@@ -30,7 +31,7 @@ internal class MainComponent(
                 navigate {
                     navigator.handleConfiguration(
                         HomeComponent.Configuration.GroupConfiguration(
-                            group = event.group
+                            group = event.group.asConfig()
                         )
                     )
                 }

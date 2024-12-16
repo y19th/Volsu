@@ -4,6 +4,7 @@ import com.arkivanov.decompose.ComponentContext
 import com.volsu.unijournal.core.local.entities.subjects.SubjectType
 import com.volsu.unijournal.core.util.base_components.ScreenComponent
 import com.volsu.unijournal.core.util.models.SnackState
+import com.volsu.unijournal.subject.extension.editableMessage
 import com.volsu.unijournal.subject.performance_detail.domain.events.PerformanceDetailEvents
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLaboratory
 import com.volsu.unijournal.subject.performance_detail.domain.models.DetailLecture
@@ -126,10 +127,5 @@ internal class PerformanceDetailComponent(
         SubjectType.Seminar -> {
             DetailSeminar.testDetailSeminarState()
         }
-    }
-
-    private fun Boolean.editableMessage(): String {
-        return if (this)
-            "Вы включили режим редактирования" else "Режим редактирования отключен"
     }
 }
